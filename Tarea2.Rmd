@@ -1,0 +1,20 @@
+---
+title: "Tarea 2"
+author: "Matías Martínez"
+date: "10 de mayo de 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio 1
+```{r}
+library(tidyverse)
+datos<- read.table(url("https://catalogodatos.gub.uy/dataset/fded3eeb-2904-43a5-a348-0b31434ef085/resource/d8ac0fb1-c972-4539-a889-bc510f999090/download/emisiones-de-co2-por-sector.csv"),header=T,sep=";")
+
+d_emision<- gather(datos, key = fuente, value = emisión, -AÑO)
+```
+
+Recopilar toma múltiples columnas y colapsa en pares clave-valor, duplicando todas las demás columnas según sea necesario. Usas gather () cuando notas que tienes columnas que no son variables.
