@@ -9,12 +9,26 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Ejercicio 1
+
 ```{r}
 library(tidyverse)
-datos<- read.table(url("https://catalogodatos.gub.uy/dataset/fded3eeb-2904-43a5-a348-0b31434ef085/resource/d8ac0fb1-c972-4539-a889-bc510f999090/download/emisiones-de-co2-por-sector.csv"),header=T,sep=";")
-
-d_emision<- gather(datos, key = fuente, value = emisión, -AÑO)
+datos<- read.csv2("https://catalogodatos.gub.uy/dataset/fded3eeb-2904-43a5-a348-0b31434ef085/resource/d8ac0fb1-c972-4539-a889-bc510f999090/download/emisiones-de-co2-por-sector.csv",header=T,sep=";",stringsAsFactors=F,na.strings="unknown",fill=T)
+d_emision<- gather(datos, key = fuente, value = emision, -AÑO)
 ```
+## Ejercicio 1
+
+
+```{r}
+ d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E"))  %>% group_by(fuente,AÑO) %>% drop_na() %>% arrange(desc(emision)) %>% head(8) %>% ggplot(aes(reorder(AÑO,-emision),emision)) + geom_bar(aes(fill=fuente,color=fuente),stat="identity",position ="dodge") + labs(x="Fuente")
+```
+1) La Quema de Biomasa es la mayor fuente de emisiones de CO2 desde 2008 hasta 2016.
+2) Su año con emisión móxima fue el 2016, alcanzando 8831.
+
+
+```{r}
+d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na()%>% group_by(fuente,AÑO,emision) %>% group_by(fuente) %>% ggplot(aes(reorder(fuente,-emision),emision)) + geom_boxplot() + geom_jitter(alpha=.2)
+```
+
+
 
 Recopilar toma múltiples columnas y colapsa en pares clave-valor, duplicando todas las demás columnas según sea necesario. Usas gather () cuando notas que tienes columnas que no son variables.
