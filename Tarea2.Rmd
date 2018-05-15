@@ -17,18 +17,34 @@ d_emision<- gather(datos, key = fuente, value = emision, -AÑO)
 ```
 ## Ejercicio 1
 
-
+1)
 ```{r}
- d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E"))  %>% group_by(fuente,AÑO) %>% drop_na() %>% arrange(desc(emision)) %>% head(8) %>% ggplot(aes(reorder(AÑO,-emision),emision)) + geom_bar(aes(fill=fuente,color=fuente),stat="identity",position ="dodge") + labs(x="Fuente")
+d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na()%>% group_by(fuente,AÑO,emision) %>% group_by(fuente) %>% summarise(max=max(emision)) %>% arrange(desc(max)) %>% ggplot() + geom_bar(aes(reorder(fuente,-max),max),stat="identity")
 ```
-1) La Quema de Biomasa es la mayor fuente de emisiones de CO2 desde 2008 hasta 2016.
-2) Su año con emisión móxima fue el 2016, alcanzando 8831.
-
-
+ La Quema de Biomasa es la mayor fuente de emisiones de CO2 desde 2008 hasta 2016.
+ 
+2)
 ```{r}
+d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na()%>% filter(emision==max(emision))
+```
+Su año con emisión móxima fue el 2016, alcanzando 8831.
+
+
+3)
+```{r}
+d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na()%>% group_by(fuente,AÑO,emision) %>% group_by(fuente) %>% summarise(media=mean(emision)) %>% arrange(desc(media)) %>% head(5) %>% ggplot(aes(reorder(fuente,-media),media)) + geom_bar(stat="identity") + labs(x="Fuente",y="Media de emisión en Gg",title="Gráfico de barras: media de emisiones de CO2 por fuente")
+
 d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na()%>% group_by(fuente,AÑO,emision) %>% group_by(fuente) %>% ggplot(aes(reorder(fuente,-emision),emision)) + geom_boxplot() + geom_jitter(alpha=.2)
+```
+4)
+```{r}
+
+
+
+d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na() %>% ggplot() + geom_line(aes(AÑO,emision,colour=fuente))
 ```
 
 
 
 Recopilar toma múltiples columnas y colapsa en pares clave-valor, duplicando todas las demás columnas según sea necesario. Usas gather () cuando notas que tienes columnas que no son variables.
+
