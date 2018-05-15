@@ -40,7 +40,6 @@ d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% dro
 ```{r}
 
 
-
 d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na() %>% ggplot() + geom_line(aes(AÑO,emision,colour=fuente))
 ```
 
