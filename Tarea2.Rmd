@@ -61,3 +61,23 @@ d_emision %>% drop_na() %>% filter(fuente=="TOTAL") %>% ggplot(aes(AÑO,emision)
 ```
 
 
+## Ejercicio 2
+
+```{r}
+med<- read.csv2("https://catalogodatos.gub.uy/dataset/96e636e5-4f78-49a7-8e14-60e90173a0c0/resource/936ac9e6-b0f6-424a-9b53-ee408a91fd6f/download/datos_gastos-por-actos-mdicos-2016.csv",header = TRUE,sep=",")
+str(med)
+```
+
+Preguntas a responder:
+
+1) ¿Cuál es la media de edad según sexo?
+
+```{r}
+table(med$Sexo)
+med %>% drop_na() %>% select(Edad_años ,Sexo ) %>% ggplot(aes(Sexo,Edad_años)) + geom_boxplot(aes(fill=Sexo),show.legend = F) + labs(y="Edad en Años", title="Diagrama de caja: distriución edad según sexo")
+
+
+med %>% drop_na() %>% select(Edad_años ,Sexo ) %>% ggplot(aes(Edad_años)) + geom_freqpoly(aes(colour=Sexo),binwidth = 2) + labs(x="Edad en Años",y="Frecuencia absoluta", title="Histograma: distriución edad según sexo")
+
+```
+2)
