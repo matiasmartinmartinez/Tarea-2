@@ -88,6 +88,11 @@ med %>% drop_na() %>% select(Edad_años ,Sexo ) %>% ggplot(aes(Edad_años)) + ge
 2) ¿ Qué tipo de prestador tiene mayor importe total?
 
 ```{r}
-med %>% select(Prestador_tipo, Importe) %>% ggplot(aes(Prestador_tipo,Importe)) + geom_bar(aes(colour=Prestador_tipo),stat="identity",show.legend = F) + labs(x="Tipo de prestador",y="Monto total en pesos pagado en el año 2016", title="Gráfico de barras: importe total según tipo de prestador")
+med %>% select(Prestador_tipo, Importe) %>% ggplot(aes(reorder(Prestador_tipo, - Importe),Importe)) + geom_bar(aes(colour=Prestador_tipo),stat="identity",show.legend = F) + labs(x="Tipo de prestador",y="Monto total en pesos pagado en el año 2016", title="Gráfico de barras: importe total según tipo de prestador")
+```
+3)
+
+```{r}
+
 ```
 
