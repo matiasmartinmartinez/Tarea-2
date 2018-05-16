@@ -32,17 +32,19 @@ Su año con emisión móxima fue el 2016, alcanzando 8831.
 
 3)
 ```{r}
-d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na()%>% group_by(fuente,AÑO,emision) %>% group_by(fuente) %>% summarise(media=mean(emision)) %>% arrange(desc(media)) %>% head(5) %>% ggplot(aes(reorder(fuente,-media),media)) + geom_bar(stat="identity") + labs(x="Fuente",y="Media de emisión en Gg",title="Gráfico de barras: media de emisiones de CO2 por fuente")
+media=d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na() %>% group_by(fuente) %>%  summarise(media=mean(emision)) %>% arrange(desc(media)) %>% head(5)
+media %>%  ggplot(aes(reorder(fuente,-media),media)) + geom_bar(stat="identity",aes(fill=fuente,colour=fuente),show.legend = FALSE) + 
+  labs(x="Fuentes con mayor emisión media entre 1990 − 2016",y="Media de emisión en Gg",title="Gráfico de barras: media de emisiones de CO2 por fuente") 
 
-d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na()%>% group_by(fuente,AÑO,emision) %>% group_by(fuente) %>% ggplot(aes(reorder(fuente,-emision),emision)) + geom_boxplot() + geom_jitter(alpha=.2)
+d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na() %>% group_by(fuente) %>% ggplot(aes(reorder(fuente,-emision),emision)) + geom_boxplot() + geom_jitter(alpha=.2) + labs(x="Fuentes con mayor emisión media entre 1990−2016",y="Emisión de CO2 en Gg", title= "Diagrama de caja: emisión media por fuente")
 ```
 4)
 ```{r}
-
-
-d_emision %>% filter(!(fuente=="TOTAL" | fuente=="S_C" | fuente=="I_E")) %>% drop_na() %>% ggplot() + geom_line(aes(AÑO,emision,colour=fuente))
+d_emision %>% filter(fuente==(media$fuente)) %>% 
+  drop_na() %>% ggplot(aes(AÑO,emision)) + 
+  geom_line(aes(colour=fuente)) + geom_point(alpha=1/2) + 
+  labs(x="Año desde 1990-2016",y="Emisión de CO2 en Gg",title="Gráfica series de tiempo: emisión de CO2 según fuente",caption=paste0(strwrap("Desde años ulteriores al 2000, la emisión producto de la quema de biomasa es creciente y año a año toma distancias mayores a las demás fuentes", 80), sep="", collapse="\n"))
 ```
-
 
 
 Recopilar toma múltiples columnas y colapsa en pares clave-valor, duplicando todas las demás columnas según sea necesario. Usas gather () cuando notas que tienes columnas que no son variables.
