@@ -80,7 +80,7 @@ med %>% drop_na() %>% select(Edad_años ,Sexo ) %>% group_by(Sexo) %>% summarise
 med %>% drop_na() %>% select(Edad_años ,Sexo ) %>% ggplot(aes(Sexo,Edad_años)) + geom_boxplot(aes(fill=Sexo),show.legend = F) + labs(y="Edad en Años", title="Diagrama de caja: distribución de la edad según sexo")
 
 
-med %>% drop_na() %>% select(Edad_años ,Sexo ) %>% ggplot(aes(Edad_años)) + geom_freqpoly(aes(colour=Sexo),binwidth = 2) + labs(x="Edad en Años",y="Frecuencia absoluta", title="Histograma: distribución de la edad según sexo")
+med %>% drop_na() %>% select(Edad_años ,Sexo ) %>% ggplot(aes(Edad_años,fill=Sexo,colour=Sexo)) + geom_density(alpha=0.55,show.legend = F) + labs(x="Edad en Años",y="Frecuencia absoluta", title="Diagrama de densidad: distribución de la edad según sexo")
 
 ```
 
