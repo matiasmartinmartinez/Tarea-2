@@ -74,6 +74,9 @@ Preguntas a responder:
 
 ```{r}
 table(med$Sexo)
+
+med %>% drop_na() %>% select(Edad_años ,Sexo ) %>% group_by(Sexo) %>% summarise(m=mean(Edad_años))
+
 med %>% drop_na() %>% select(Edad_años ,Sexo ) %>% ggplot(aes(Sexo,Edad_años)) + geom_boxplot(aes(fill=Sexo),show.legend = F) + labs(y="Edad en Años", title="Diagrama de caja: distribución de la edad según sexo")
 
 
@@ -82,4 +85,9 @@ med %>% drop_na() %>% select(Edad_años ,Sexo ) %>% ggplot(aes(Edad_años)) + ge
 ```
 
 
-2) ¿En qué departamento
+2) ¿ Qué tipo de prestador tiene mayor importe total?
+
+```{r}
+med %>% select(Prestador_tipo, Importe) %>% ggplot(aes(Prestador_tipo,Importe)) + geom_bar(aes(colour=Prestador_tipo),stat="identity",show.legend = F) + labs(x="Tipo de prestador",y="Monto total en pesos pagado en el año 2016", title="Gráfico de barras: importe total según tipo de prestador")
+```
+
