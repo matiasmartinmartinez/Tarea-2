@@ -46,6 +46,17 @@ d_emision %>% filter(fuente==(media$fuente)) %>%
   labs(x="Año desde 1990-2016",y="Emisión de CO2 en Gg",title="Gráfica series de tiempo: emisión de CO2 según fuente",caption=paste0(strwrap("Desde años ulteriores al 2000, la emisión producto de la quema de biomasa es creciente y año a año toma distancias mayores a las demás fuentes", 80), sep="", collapse="\n"))
 ```
 
+5)
 
-Recopilar toma múltiples columnas y colapsa en pares clave-valor, duplicando todas las demás columnas según sea necesario. Usas gather () cuando notas que tienes columnas que no son variables.
+```{r}
+d_emision %>% filter(fuente==(media$fuente)) %>% drop_na() %>% group_by(fuente) %>% ggplot(aes(reorder(fuente,-emision),emision)) + geom_boxplot()  + labs(x="Fuentes con mayor emisión media entre 1990−2016",y="Emisión de CO2 en Gg", title= "Diagrama de caja: emisión media por fuente")
+```
+
+6)
+
+```{r}
+library(ggpmisc)
+
+```
+
 
