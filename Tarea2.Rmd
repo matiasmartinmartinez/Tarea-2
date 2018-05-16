@@ -92,10 +92,7 @@ med %>% select(Prestador_tipo, Importe) %>% ggplot(aes(reorder(Prestador_tipo, -
 
 
 
-3)
+3) ¿Qué departamentos tienen mayor relación paciente~prestador?
 
-```{r}
-
-```
 
 
