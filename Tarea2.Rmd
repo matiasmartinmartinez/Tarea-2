@@ -57,6 +57,7 @@ d_emision %>% filter(fuente==(media$fuente)) %>% drop_na() %>% group_by(fuente) 
 ```{r}
 library(ggpmisc)
 
+d_emision %>% drop_na() %>% filter(fuente=="TOTAL") %>% ggplot(aes(AÑO,emision))+ geom_point() + geom_line()+ stat_peaks(colour = "red") + stat_peaks(geom = "text", colour = "red", hjust = -0.1) +labs(x="Año desde 1990-2016",y="Total de emisiones de CO2 en Gg", title="Gráfico series de tiempo: emisión total de CO2")
 ```
 
 
