@@ -92,7 +92,22 @@ med %>% select(Prestador_tipo, Importe) %>% ggplot(aes(reorder(Prestador_tipo, -
 
 
 
-3) ¿Qué departamentos tienen mayor relación paciente~prestador?
+3) ¿Qué departamentos correspondientes a la residencia del paciente poseen mayor media de edad?
+
+```{r}
+med %>% drop_na() %>% select(Prestador_tipo, Edad_años ) %>% group_by(Prestador_tipo) %>% summarise(media=mean( Edad_años)) %>% arrange(desc(media))
+
+med %>% drop_na() %>% select(Prestador_tipo, Edad_años ) %>%  ggplot(aes(reorder(Prestador_tipo, Edad_años, FUN = median,desc=T),Edad_años)) + geom_boxplot() + labs(x="Tipo de prestador",y="Edad en años",title="Diagrama de caja: edad según tipo de prestador") 
+
+```
+
+4) ¿Que relación existe entre sexo y tipo de prestado?
+
+```{r}
+library(productplots)
+library(ggmosaic)
+med %>% count(Prestador_tipo,Sexo) %>% ggplot() + geom_mosaic(aes(weight=n,x=product(Sexo,Prestador_tipo),fill=Sexo)) + labs(x="Tipo de prestador",title="Gráfico de mosaico: sexo según tipo de prestador")
+```
 
 
 
