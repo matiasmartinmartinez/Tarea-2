@@ -107,6 +107,15 @@ med %>% drop_na() %>% select(Prestador_tipo, Edad_años ) %>%  ggplot(aes(reorde
 library(productplots)
 library(ggmosaic)
 med %>% count(Prestador_tipo,Sexo) %>% ggplot() + geom_mosaic(aes(weight=n,x=product(Sexo,Prestador_tipo),fill=Sexo)) + labs(x="Tipo de prestador",title="Gráfico de mosaico: sexo según tipo de prestador")
+
+
+chisq.test(med$Sexo,med$Prestador_tipo) 
+```
+
+5) ¿Cuál es el prestador de salud con mayor  frecuencia absoluta?
+
+```{r}
+
 ```
 
 
