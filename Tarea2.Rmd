@@ -115,7 +115,7 @@ chisq.test(med$Sexo,med$Prestador_tipo)
 5) ¿Cuál es el prestador de salud con mayor  frecuencia absoluta?
 
 ```{r}
-
+med %>% count(Prestador) %>% arrange(desc(n)) %>% head(5) %>% ggplot(aes(reorder(Prestador,-n),n)) + geom_bar(aes(fill=Prestador),stat="identity")+ labs(x="Prestador",y="Frecuencia absoluta", title="Gráfico de barras:frecuencia absoluta según prestador")
 ```
 
 
